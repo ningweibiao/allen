@@ -1,0 +1,17 @@
+<aside class="lt_aside_nav content mCustomScrollbar">
+    <ul>
+        {volist name="$menuArr" id="data"}
+        <li>
+            <dl>
+                <dt>{$data.module}</dt>
+                {volist name="$data.data" id="item"}
+                <dd><a href="{$item.menu_url}"
+                       {eq name="$nowPath" value="$item.active_url"}class="active"{/eq}
+                    >{$item.menu_name}</a></dd>
+                {/volist}
+            </dl>
+        </li>
+        {/volist}
+    </ul>
+</aside>
+

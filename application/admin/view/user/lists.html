@@ -1,0 +1,86 @@
+{extend name="layout/base" /}
+{block name="main"}
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+  <section>
+   <div class="page_title">
+    <h2 class="fl">会员列表</h2>
+    <a class="fr top_rt_btn" href="/user/user_add">添加会员</a>
+   </div>
+   <table class="table">
+    <tr>
+     <th>序号</th>
+     <th>用户名</th>
+     <th>手机号</th>
+     <th>性别</th>
+     <th>地址</th>
+     <th>头像</th>
+     <th>创建时间</th>
+     <th>操作</th>
+    </tr>
+    {volist name="lists" id="data"}
+    <tr>
+     <td style="text-align: center">{$data.id}</td>
+     <td style="text-align: center">{$data.user_name}</td>
+     <td style="text-align: center">{$data.mobile}</td>
+     <td style="text-align: center">
+      {eq name="$data.sex" value="0"}
+      男
+      {else/}
+      女
+      {/eq}
+     </td>
+     <td style="text-align: center">{$data.province}{$data.city}{$data.area}</td>
+     <td style="text-align: center">
+      <img style="height: 50px;width: 50px"  src="__UPLOADS__{$data.face}" alt="帅气的头像">
+     </td>
+     <td style="text-align: center">{$data.create_time}</td>
+     <td style="text-align: center">
+      <a href="/user/user_edit?id={$data.id}">编辑会员</a>
+      <a onclick="userDel(this)" data-id="{$data.id}"  class="inner_btn">删除会员</a>
+     </td>
+    </tr>
+    {/volist}
+   </table>
+   <aside class="paging">
+    {$pageHtml}
+   </aside>
+  </section>
+ </div>
+</section>
+<script type="text/javascript">
+    function userDel(obj) {
+        var id = $(obj).data('id');
+        layer.confirm('确定要删除该用户吗？',
+            { btn: ['确定', '取消'] },
+            function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "/user/user_del",
+                    data: {
+                        'id': id,
+                    },
+                    success:function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon: 1,
+                                time: 2000
+                            }, function(){
+                                window.location.href= data.url;
+                            });
+                        } else {
+                            layer.msg(data.msg,
+                                {
+                                    icon: 7,
+                                    time: 2000
+                                }
+                            );
+                        }
+                    }
+                });
+            }, function () {
+                layer.close(layer.index);
+            });
+    }
+</script>
+{/block}

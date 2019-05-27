@@ -1,0 +1,53 @@
+{extend name="layout/base" /}
+{block name="main"}
+<section class="rt_wrap content mCustomScrollbar">
+    <form action="/menu/menu_edit" enctype="multipart/form-data" method="post">
+        <h2><strong style="color:grey;"><a href="javascript:history.go(-1)">菜单管理</a>  > 添加菜单</strong></h2>
+        <ul class="ulColumn2">
+            <input value="{$id}" name="id" hidden>
+            <li>
+                <span class="item_name" style="width:120px;">用户名：</span>
+                <input type="text" class="textbox textbox_295" name="menu_name" value="{$menuInfo.menu_name}" placeholder="请输入菜单名称"/>
+                <!--<span class="errorTips">错误提示信息...</span>-->
+            </li>
+            <li>
+                <span class="item_name" style="width:120px;">菜单url：</span>
+                <input type="text" class="textbox textbox_295" name="menu_url" value="{$menuInfo.menu_url}" placeholder="请输入菜单url"/>
+                <!--<span class="errorTips">错误提示信息...</span>-->
+            </li>
+            <li>
+                <span class="item_name" style="width:120px;">高亮url：</span>
+                <input type="text" class="textbox textbox_295" name="active_url" value="{$menuInfo.active_url}" placeholder="请输入高亮url"/>
+                <!--<span class="errorTips">错误提示信息...</span>-->
+            </li>
+            <li>
+                <span class="item_name" style="width:120px;">模块：</span>
+                <input type="text" class="textbox textbox_295" name="module" value="{$menuInfo.module}" placeholder="请输入模块名"/>
+                <!--<span class="errorTips">错误提示信息...</span>-->
+            </li>
+            <li>
+                <span class="item_name" style="width:120px;">选择父菜单：</span>
+                <select class="select" style="width:100px;"  name="fid">
+                    <option {eq name="$menuInfo.fid" value="0"}selected{/eq}
+                    value="0">根菜单</option>
+                    {volist name="menuList" id="vo"}
+                    <option {eq name="$menuInfo.fid" value="$vo.id"}selected{/eq}
+                    value="{$vo.id}">{$vo.menu_name}</option>
+                    {/volist}
+                </select>
+                <!--<span class="errorTips">错误提示信息...</span>-->
+            </li>
+            <li>
+                <span class="item_name" style="width:120px;">展示：</span>
+                <label class="single_selection"><input type="radio"  name="show" value="0"/>否</label>
+                <label class="single_selection"><input type="radio" checked name="show" value="1"/>是</label>
+            </li>
+            <li>
+                <span class="item_name" style="width:120px;"></span>
+                <input type="submit" class="link_btn"/>
+                <a href="javascript:history.go(-1)">取消</a>
+            </li>
+        </ul>
+    </form>
+</section>
+{/block}

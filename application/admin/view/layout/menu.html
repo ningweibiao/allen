@@ -1,0 +1,20 @@
+<header>
+    <h1><img src="__HOME_PUBLIC__images/admin_logo.png"/></h1>
+    <ul class="rt_nav">
+        <li><a href="/home/index" target="_self" class="website_icon">站点首页</a></li>
+        <li><a href="#" class="admin_icon">DeathGhost</a></li>
+        <li><a href="#" class="set_icon">账号设置</a></li>
+        <li><a href="#" onclick="logout()" class="quit_icon">安全退出</a href=""></li>
+    </ul>
+</header>
+<script type="text/javascript">
+    function logout() {
+        layer.confirm('确定要退出账号吗？',
+            { btn: ['确定', '取消'] },
+            function () {
+                window.location.href = '/user/user_logout';
+            }, function () {
+                layer.close(layer.index);
+            });
+    }
+</script>

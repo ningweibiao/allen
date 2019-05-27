@@ -1,0 +1,76 @@
+{extend name="layout/base" /}
+{block name="main"}
+<section class="rt_wrap content mCustomScrollbar">
+ <div class="rt_content">
+  <section>
+   <div class="page_title">
+    <h2 class="fl">菜单列表</h2>
+    <a class="fr top_rt_btn" href="/menu/menu_add">添加菜单</a>
+   </div>
+   <table class="table">
+    <tr>
+     <th>序号</th>
+     <th>菜单名称</th>
+     <th>菜单url</th>
+     <th>active_url</th>
+     <th>模块</th>
+     <th>fid</th>
+     <th>show</th>
+     <th>操作</th>
+    </tr>
+    {volist name="lists" id="data"}
+    <tr>
+     <td style="text-align: center">{$data.id}</td>
+     <td style="text-align: center">{$data.menu_name}</td>
+     <td style="text-align: center">{$data.menu_url}</td>
+     <td style="text-align: center">{$data.active_url}</td>
+     <td style="text-align: center">{$data.module}</td>
+     <td style="text-align: center">{$data.fid}</td>
+     <td style="text-align: center">{$data.show}</td>
+     <td style="text-align: center">
+      <a href="/menu/menu_edit?id={$data.id}">编辑菜单</a>
+      <a onclick="menuDel(this)" data-id="{$data.id}"  class="inner_btn">删除菜单</a>
+     </td>
+    </tr>
+    {/volist}
+   </table>
+  </section>
+ </div>
+</section>
+<script type="text/javascript">
+    function menuDel(obj) {
+        var id = $(obj).data('id');
+        layer.confirm('确定要删除该菜单吗？',
+            { btn: ['确定', '取消'] },
+            function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "/menu/menu_del",
+                    data: {
+                        'id': id,
+                    },
+                    success:function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon: 1,
+                                time: 2000
+                            }, function(){
+                                window.location.href= data.url;
+                            });
+                        } else {
+                            layer.msg(data.msg,
+                                {
+                                    icon: 7,
+                                    time: 2000
+                                }
+                            );
+                        }
+                    }
+                });
+            }, function () {
+                layer.close(layer.index);
+            });
+    }
+</script>
+
+{/block}
