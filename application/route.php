@@ -24,7 +24,7 @@
                 'menu_del'      =>'admin/Menu/del',
             ],
             '[order]' => [
-                'order_list'     =>'admin/Order/lists',
+                'order_list'    =>'admin/Order/lists',
                 'order_add'     =>'admin/Order/add',
             ],
 
